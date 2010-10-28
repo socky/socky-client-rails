@@ -1,6 +1,6 @@
 require 'fileutils'
 
-SOCKY_SCRIPTS = ['/socky.js']
+SOCKY_SCRIPTS = ['/socky.js', '/socky']
 SOURCE_PREFIX = File.join(File.dirname(__FILE__), '..', '..', 'assets')
 DEST_PREFIX = Rails.root.join('public', 'javascripts').to_s
 
