@@ -6,7 +6,7 @@ Socky is push server for Ruby based on WebSockets. It allows you to break border
 ## Getting Started
 
 - [Install](http://github.com/socky/socky-client-rails/wiki/install) the gem
-- Read up about its [Usage](http://github.com/socky/socky-client-rails/wiki/usage) and [Configuration](http://github.com/socky/socky-client-rails/wiki/configuration)
+- Read up about its [Usage](http://github.com/socky/socky-client-rails/wiki/usage), [Configuration](http://github.com/socky/socky-client-rails/wiki/configuration) and [Customizing JavaScript](http://github.com/socky/socky-js/wiki/Customizing-JavaScript)
 - Try [Example Application](http://github.com/socky/socky-example) or [demo page](http://sockydemo.imanel.org)
 - Fork and Contribute your own modifications
 - See [sites using socky](http://github.com/socky/socky-server-ruby/wiki/sites)
