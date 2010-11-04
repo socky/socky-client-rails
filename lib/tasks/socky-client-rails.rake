@@ -1,8 +1,14 @@
 require 'fileutils'
 
-SOCKY_SCRIPTS = ['/socky.js', '/socky']
-SOURCE_PREFIX = File.join(File.dirname(__FILE__), '..', '..', 'assets')
-DEST_PREFIX = Rails.root.join('public', 'javascripts').to_s
+SOCKY_JS_VERSION = File.read(File.dirname(__FILE__) + '/../../VERSION').strip.split('.')[0,2].join('.')
+SOCKY_JS_SERVER = 'https://github.com/socky/socky-js/raw'
+SOCKY_JS_DEST = Rails.root.join('public', 'javascripts').to_s
+SOCKY_JS_FILES = {
+  'socky.js' => 'socky.js',
+  'WebSocketMain.swf' => 'socky/WebSocketMain.swf'
+}
+
+CONFIG_PATH = File.join(File.dirname(__FILE__), '..', '..', 'assets', 'socky_hosts.yml')
 
 namespace :socky do
   desc 'Install the Socky scripts and create configuration file'
@@ -15,53 +21,51 @@ namespace :socky do
   task :uninstall => [:remove_scripts]
 
   task :create_config do
-    source = SOURCE_PREFIX + '/socky_hosts.yml'
     dest = Rails.root.join('config', 'socky_hosts.yml').to_s
     if File.exists?(dest)
-      puts "Removing #{dest}."
       FileUtils.rm_rf dest
     end
     begin
-      puts "Copying to #{dest}."
-      FileUtils.cp_r source, dest
-      puts "Successfully updated #{dest}."
+      puts "Copying config..."
+      FileUtils.cp_r CONFIG_PATH, dest
+      puts "Done"
     rescue
-      puts "ERROR: Problem creating config. Please manually copy " + source + " to " + dest
+      puts "ERROR: Problem creating config. Please manually copy " + CONFIG_PATH + " => " + dest
     end
   end
 
 
   task :create_scripts do
-    SOCKY_SCRIPTS.each do |file_suffix|
-      source = SOURCE_PREFIX + file_suffix
-      dest = DEST_PREFIX + file_suffix
-      if File.exists?(dest)
-        puts "Removing #{dest}."
-        FileUtils.rm_rf dest
-      end
+    require 'open-uri'
+    puts 'Downloading files...'
+    SOCKY_JS_FILES.each do |source, dest|
       begin
-        puts "Copying to #{dest}."
-        FileUtils.cp_r source, dest
-        puts "Successfully updated #{dest}."
+        uri = URI.parse(SOCKY_JS_SERVER + '/v' + SOCKY_JS_VERSION + '-stable/' + source)
+        file = File.join(SOCKY_JS_DEST, dest)
+        puts ' + ' + dest
+        FileUtils.mkdir_p(File.dirname(file))
+        open(uri) do |data|
+          open(file, "wb") do |f|
+            f.write(data.read)
+          end
+        end
       rescue
-        puts "ERROR: Problem updating scripts. Please manually copy " + source + " to " + dest
+        puts "ERROR: Problem downloading script. Please manually copy " + uri.to_s + " => " + file
       end
     end
+    puts "Done"
   end
 
   task :remove_scripts do
-    SOCKY_SCRIPTS.each do |dest_suffix|
-      dest = DEST_PREFIX + dest_suffix
-      if File.exists?(dest)
-         begin
-          puts "Removing #{dest}..."
-          FileUtils.rm_rf dest
-          puts "Successfully removed #{dest}"
-          rescue
-          puts "ERROR: Problem removing #{dest}. Please remove manually."
-         end
-      else
-        puts "ERROR: #{dest} not found."
+    puts 'Removing files...'
+    SOCKY_JS_FILES.each do |source, dest|
+      file = SOCKY_JS_DEST + dest
+      if File.exists?(file)
+        begin
+          FileUtils.rm_rf file
+        rescue
+          puts "ERROR: Problem removing #{file}. Please remove manually."
+        end
       end
     end
     puts "Successfully removed Socky."

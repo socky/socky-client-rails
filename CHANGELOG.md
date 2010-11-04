@@ -5,6 +5,7 @@ Changelog
 
 - new features:
   - generator for Rails 2
+  - download socky.js instead of including it in this lib
 - bugfixes:
   - none
 
