@@ -53,6 +53,14 @@ namespace :socky do
         puts "ERROR: Problem downloading script. Please manually copy " + uri.to_s + " => " + file
       end
     end
+    script_file = File.join(SOCKY_JS_DEST, 'socky.js').to_s
+    if File.exists?(script_file)
+      puts 'Updating assets info'
+      text = File.read(script_file)
+      open(script_file, 'wb') do |f|
+        f.write text.gsub('WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf"', 'WEB_SOCKET_SWF_LOCATION = "/javascripts/socky/WebSocketMain.swf"')
+      end
+    end
     puts "Done"
   end
 
