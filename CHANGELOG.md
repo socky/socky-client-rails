@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Edge
+## 0.4.3 / 2010-11-05
 
 - new features:
   - generator for Rails 2
