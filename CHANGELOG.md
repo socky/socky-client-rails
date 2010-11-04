@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 0.4.2 / 2010-11-04
+
+- new features:
+  - none
+- bugfixes:
+  - update socky.js to v0.4.1(add missing json library)
+
 ## 0.4.1 / 2010-10-29
 
 - new features:
