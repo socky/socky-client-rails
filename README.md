@@ -59,13 +59,13 @@ After that you can use @socky@ helper to create connection with Socky server.
 
 Helper is accepting following options in hash form:
 
-| *Option*         | *Value format*     | *Description* |
-| ---------------- | ------------------ | ------------- |
-| `:host`          | `[string]`         | IP or hostname of Socky server - at default random server from socky_hosts.yml is taken
-| `:port`          | `[integer]`        | Port on with Socky server listens - at default random server from socky_hosts.yml is taken
-| `:client_id`     | `[string/integer]` | Hash by with user will be identified
-| `:client_secret` | `[string]`         | Hash by with user will be authenticated
-| `:channels`      | `[array]`          | List of channels to with user will be connected
+| *Option*       | *Value format*     | *Description* |
+| -------------- | ------------------ | ------------- |
+| `:host`        | `[string]`         | IP or hostname of Socky server - at default random server from socky_hosts.yml is taken
+| `:port`        | `[integer]`        | Port on with Socky server listens - at default random server from socky_hosts.yml is taken
+| `:user_id`     | `[string/integer]` | Hash by with user will be identified
+| `:user_secret` | `[string]`         | Hash by with user will be authenticated
+| `:channels`    | `[array]`          | List of channels to with user will be connected
 
 ### Model and controller
 
@@ -77,7 +77,7 @@ Socky Ruby on Rails bindings offers all functionality of [socky-client-ruby](htt
 
 Note that you can as usually use old methods and connect them with new method:
 
-    Socky.send :clients => ["client1", "client2"] do |page|
+    Socky.send :users => ["user1", "user2"] do |page|
       page.alert('ok!')
     end
 
