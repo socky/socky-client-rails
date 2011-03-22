@@ -1,11 +1,12 @@
 require 'fileutils'
 
 SOCKY_JS_VERSION = File.read(File.dirname(__FILE__) + '/../../VERSION').strip.split('.')[0,2].join('.')
-SOCKY_JS_SERVER = 'https://github.com/socky/socky-js/raw'
+SOCKY_JS_SERVER = 'http://js.socky.org'
 SOCKY_JS_DEST = Rails.root.join('public', 'javascripts').to_s
 SOCKY_JS_FILES = {
   'socky.js' => 'socky.js',
-  'WebSocketMain.swf' => 'socky/WebSocketMain.swf'
+  'assets/flashfallback.js' => 'socky/flashfallback.js',
+  'assets/WebSocketMain.swf' => 'socky/WebSocketMain.swf'
 }
 
 CONFIG_PATH = File.join(File.dirname(__FILE__), '..', '..', 'assets', 'socky_hosts.yml')
@@ -40,7 +41,7 @@ namespace :socky do
     puts 'Downloading files...'
     SOCKY_JS_FILES.each do |source, dest|
       begin
-        uri = URI.parse(SOCKY_JS_SERVER + '/v' + SOCKY_JS_VERSION + '-stable/' + source)
+        uri = URI.parse(SOCKY_JS_SERVER + '/v' + SOCKY_JS_VERSION + '/' + source)
         file = File.join(SOCKY_JS_DEST, dest)
         puts ' + ' + dest
         FileUtils.mkdir_p(File.dirname(file))
@@ -58,7 +59,7 @@ namespace :socky do
       puts 'Updating assets info'
       text = File.read(script_file)
       open(script_file, 'wb') do |f|
-        f.write text.gsub('WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf"', 'WEB_SOCKET_SWF_LOCATION = "/javascripts/socky/WebSocketMain.swf"')
+        f.write text.gsub(/SOCKY_ASSET_LOCATION = '(.+)';/, 'SOCKY_ASSET_LOCATION = "/javascripts/socky/WebSocketMain.swf";')
       end
     end
     puts "Done"
