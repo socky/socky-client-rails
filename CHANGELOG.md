@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 0.4.4 / 2011-03-22
+
+- moved documentation to readme
+- added gemspec to repo - bundler require that
+- fix downloading scripts from repo
+
 ## 0.4.3 / 2010-11-05
 
 - new features:
