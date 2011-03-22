@@ -5,7 +5,8 @@ SOCKY_JS_SERVER = 'http://js.socky.org'
 SOCKY_JS_DEST = Rails.root.join('public', 'javascripts').to_s
 SOCKY_JS_FILES = {
   'socky.js' => 'socky.js',
-  'assets/flashfallback.js' => 'socky/flashfallback.js',
+  'assets/flashfallback.js'  => 'socky/flashfallback.js',
+  'assets/json2.js'          => 'socky/json2.js',
   'assets/WebSocketMain.swf' => 'socky/WebSocketMain.swf'
 }
 
