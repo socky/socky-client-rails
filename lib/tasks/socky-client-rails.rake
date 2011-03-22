@@ -59,7 +59,7 @@ namespace :socky do
       puts 'Updating assets info'
       text = File.read(script_file)
       open(script_file, 'wb') do |f|
-        f.write text.gsub(/SOCKY_ASSET_LOCATION = '(.+)';/, 'SOCKY_ASSET_LOCATION = "/javascripts/socky/WebSocketMain.swf";')
+        f.write text.gsub(/SOCKY_ASSET_LOCATION = '(.+)';/, 'SOCKY_ASSET_LOCATION = "/javascripts/socky";')
       end
     end
     puts "Done"
