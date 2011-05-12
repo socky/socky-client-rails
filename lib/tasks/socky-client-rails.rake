@@ -1,8 +1,11 @@
 require 'fileutils'
 
+RAILS_ASSET_PATH = Rails.version >= '3.1' ? 'app/assets' : 'public'
+RAILS_ASSET_URL  = Rails.version >= '3.1' ? 'assets' : 'javascripts'
+
 SOCKY_JS_VERSION = File.read(File.dirname(__FILE__) + '/../../VERSION').strip.split('.')[0,2].join('.')
 SOCKY_JS_SERVER = 'http://js.socky.org'
-SOCKY_JS_DEST = Rails.root.join('public', 'javascripts').to_s
+SOCKY_JS_DEST = Rails.root.join(RAILS_ASSET_PATH, 'javascripts').to_s
 SOCKY_JS_FILES = {
   'socky.js' => 'socky.js',
   'assets/flashfallback.js'  => 'socky/flashfallback.js',
@@ -60,7 +63,7 @@ namespace :socky do
       puts 'Updating assets info'
       text = File.read(script_file)
       open(script_file, 'wb') do |f|
-        f.write text.gsub(/SOCKY_ASSET_LOCATION = '(.+)';/, 'SOCKY_ASSET_LOCATION = "/javascripts/socky";')
+        f.write text.gsub(/SOCKY_ASSET_LOCATION = '(.+)';/, "SOCKY_ASSET_LOCATION = \"/#{RAILS_ASSET_URL}/socky\";")
       end
     end
     puts "Done"

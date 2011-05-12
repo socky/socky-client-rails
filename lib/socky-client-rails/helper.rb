@@ -1,5 +1,3 @@
-require 'action_view'
-
 module Socky
   module Helper
 
@@ -14,6 +12,3 @@ module Socky
 
   end
 end
-
-ActionView::Base.send(:include, Socky::Helper)
-ActionView::Helpers::AssetTagHelper.register_javascript_expansion :socky => ['socky']

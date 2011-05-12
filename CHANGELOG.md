@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.4.5 / 2011-05-12
+
+- support for Rails 3.1
+
 ## 0.4.4 / 2011-03-22
 
 - moved documentation to readme
